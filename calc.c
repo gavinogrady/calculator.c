@@ -105,8 +105,6 @@ int main(void) {
 
     } while (choice[0] == 'y' || choice[0] == 'Y' || strcmp(choice, "yes") == 0 || strcmp(choice, "Yes") == 0 || strcmp(choice, "YES") == 0);
 
-    printf("Thank you for using the calculator. Goodbye!\n");
-
     return 0;
 }
 
