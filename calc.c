@@ -6,16 +6,17 @@ int main(void) {
     char operator;
     int count, i;
     double result = 0, num;
-    char choice[10], useSavedResult;
+    char choice[10], useSavedResult[10];
     int hasSavedResult = 0;
 
     do {
         if (hasSavedResult) {
             printf("Current result: %.2lf\n", result);
-            printf("Do you want to use the saved result for the next calculation? (y/n): ");
-            scanf(" %c", &useSavedResult);
+            printf("Do you want to use the saved result for the next calculation? (Yes or No): ");
+            fgets(useSavedResult, sizeof(useSavedResult), stdin);
+            useSavedResult[strcspn(useSavedResult, "\n")] = 0;
 
-            if (useSavedResult == 'n' || useSavedResult == 'N') {
+            if (strcasecmp(useSavedResult, "no") == 0) {
                 hasSavedResult = 0;
             }
         }
@@ -63,6 +64,7 @@ int main(void) {
                     }
                 }
             }
+            while (getchar() != '\n');
         } else {
             printf("Enter an operator (+, -, *, /) to continue with the result: ");
             scanf(" %c", &operator);
@@ -91,22 +93,19 @@ int main(void) {
                     printf("Error: Invalid operator.\n");
                     continue;
             }
+            while (getchar() != '\n');
         }
 
         printf("Result: %.2lf\n", result);
         hasSavedResult = 1;
 
-        while (getchar() != '\n');
-
         printf("Do you want to perform another calculation? (Yes or No): ");
         fgets(choice, sizeof(choice), stdin);
-
         choice[strcspn(choice, "\n")] = 0;
-
-    } while (choice[0] == 'y' || choice[0] == 'Y' || strcmp(choice, "yes") == 0 || strcmp(choice, "Yes") == 0 || strcmp(choice, "YES") == 0);
+        
+    } while (strcasecmp(choice, "yes") == 0);
 
     printf("Thank you, Goodbye!\n");
-
+    
     return 0;
 }
-
